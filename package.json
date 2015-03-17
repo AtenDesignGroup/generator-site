@@ -1,0 +1,16 @@
+{
+  "name": "generator-aten-site",
+  "version": "0.1.0",
+  "description": "Generate an Aten Drupal site",
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "lodash": "^3.5.0",
+    "yeoman-generator": "^0.17.3",
+    "yosay": "^1.0.3"
+  }
+}
