@@ -5,6 +5,15 @@ var yosay = require('yosay');
 var _  = require('lodash');
 
 var AtenSiteGenerator = yeoman.generators.Base.extend({
+  constructor: function() {
+    yeoman.generators.Base.apply(this, arguments);
+    this.behat = false;
+
+    this.vagrant = true;
+    this.vagrantPort = 8080;
+    this.vagrantDomain = path.dirname(this.dest) + '.dev';
+  },
+
   prompting: {
     /**
      * Ask for the site name and slug it
@@ -16,15 +25,23 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
         name: 'siteName',
         message: 'What is your site\'s name?'
       }, function(props) {
-        if (props.pkgName) {
-          return this.askForModuleName();
-        }
-
         this.slugname = this._.slugify(props.siteName);
         this.safeSlugname = this.slugname.replace(/-+([a-zA-Z0-9])/g, function(g) {
           return g[1].toUpperCase();
         });
 
+        done();
+      }.bind(this));
+    },
+
+    askForSiteDescription: function() {
+      var done = this.async();
+
+      this.prompt({
+        name: 'siteDescription',
+        message: 'What is your site\'s description?'
+      }, function(props) {
+        this.siteDescription = props.siteDescription;
         done();
       }.bind(this));
     },
@@ -42,11 +59,53 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
             'Web root + resources'
           ],
           filter: function(val) { return val.toLowerCase(); }
+        },
+
+        // maybe this should be it's own generator?
+        {
+          name: 'vagrant',
+          message: 'Do you want setup vagrant?',
+          type: 'list',
+          choices: [
+            'Yes',
+            'No'
+          ],
+          filter: function(val) {
+            if (val === 'Yes') {
+              return true;
+            }
+            return false;
+          }
+        },
+        {
+          name: 'vagrantDomain',
+          message: 'What domain do you want to use?',
+          default: this.vagrantDomain
+        },
+
+        // maybe this should be it's own generator?
+        {
+          name: 'behat',
+          message: 'Do you want to include Behat for testing?',
+          type: 'list',
+          choices: [
+            'Yes',
+            'No'
+          ],
+          filter: function(val) {
+            if (val === 'Yes') {
+              return true;
+            }
+            return false;
+          }
         }
       ];
 
       this.prompt(prompts, function(props) {
         this.structure = props.structure;
+        this.behat = props.behat;
+        this.vagrant = props.vagrant;
+        this.vagrantDomain = props.vagrantDomain;
         done();
       }.bind(this));
     }
@@ -62,7 +121,20 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
     }
 
     // create the resources directory
-    this.directory('resources', path.join(publicHtml, 'resources'));
+    var resourcesPath = path.join(publicHtml, 'resources')
+    this.directory('resources', resourcesPath);
+
+    // composer.json
+    this.template('composer-json', 'composer.json');
+
+    // JS hint & cs
+    this.copy('jshintrc', '.jshintrc');
+    this.copy('jscsrc', '.jscsrc');
+
+    // behat
+    if (this.behat) {
+      this.template('behat.yml', path.join(resourcesPath, 'behat.yml'));
+    }
   },
 
   end: function() {

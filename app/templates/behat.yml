@@ -1,0 +1,17 @@
+default:
+  paths:
+    features: features
+    bootstrap: %behat.paths.features%/bootstrap
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url: http://localhost
+      default_session: zombie
+      goutte: ~
+      zombie: ~
+
+<% if (vagrant) { %>
+vagrant:
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url: http://<%= vagrantDomain %>:<%= vagrantPort %>
+<% } %>
