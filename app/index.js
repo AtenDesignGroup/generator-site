@@ -46,6 +46,19 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
       }.bind(this));
     },
 
+    askForThemeName: function() {
+      var done = this.async();
+
+      this.prompt({
+        name: 'themeId',
+        message: 'What is your theme\'s machine name?',
+        default: 'prototype'
+      }, function(props) {
+        this.themeId = props.themeId;
+        done();
+      }.bind(this));
+    },
+
     askFor: function() {
       var done = this.async();
 
@@ -58,6 +71,7 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
             'Normal, resources + public_html',
             'Web root + resources'
           ],
+          default: 'Normal, resources + public_html',
           filter: function(val) { return val.toLowerCase(); }
         },
 
