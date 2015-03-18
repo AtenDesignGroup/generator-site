@@ -65,17 +65,8 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
         {
           name: 'vagrant',
           message: 'Do you want setup vagrant?',
-          type: 'list',
-          choices: [
-            'Yes',
-            'No'
-          ],
-          filter: function(val) {
-            if (val === 'Yes') {
-              return true;
-            }
-            return false;
-          }
+          type: 'confirm',
+          default: true
         },
         {
           name: 'vagrantDomain',
@@ -87,17 +78,8 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
         {
           name: 'behat',
           message: 'Do you want to include Behat for testing?',
-          type: 'list',
-          choices: [
-            'Yes',
-            'No'
-          ],
-          filter: function(val) {
-            if (val === 'Yes') {
-              return true;
-            }
-            return false;
-          }
+          type: 'confirm',
+          default: false
         }
       ];
 
