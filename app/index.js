@@ -123,6 +123,9 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
     // composer.json
     this.template('composer-json', 'composer.json');
 
+    // gulp
+    this.copy('gulpfile.js');
+
     // JS hint & cs
     this.copy('jshintrc', '.jshintrc');
     this.copy('jscsrc', '.jscsrc');
