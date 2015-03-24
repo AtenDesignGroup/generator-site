@@ -94,6 +94,13 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
           message: 'Do you want to include Behat for testing?',
           type: 'confirm',
           default: false
+        },
+
+        {
+          name: 'setup',
+          message: 'Do you want to include setup script for managing modules, features, migrations?',
+          type: 'confirm',
+          default: true
         }
       ];
 
@@ -102,6 +109,7 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
         this.behat = props.behat;
         this.vagrant = props.vagrant;
         this.vagrantDomain = props.vagrantDomain;
+        this.setup = props.setup;
         done();
       }.bind(this));
     }
@@ -133,6 +141,11 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
     // behat
     if (this.behat) {
       this.template('behat.yml', path.join(resourcesPath, 'behat.yml'));
+    }
+
+    // setup
+    if (this.setup) {
+      this.directory('setup');
     }
   },
 
