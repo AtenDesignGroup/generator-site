@@ -117,6 +117,7 @@ puts command if options.key? :print
 #
 # enable modules
 #
+enabled_modules = nil
 if all_modes || options[:modes].include?('modules')
   section_header('ENABLE MODULES')
   enabled_modules = parse_module_status(options)
@@ -141,6 +142,7 @@ end
 #
 if all_modes || options[:modes].include?('disable')
   section_header('DISABLE MODULES')
+  enabled_modules = parse_module_status(options) if enabled_modules.nil?
   begin
     YAML.load_file('setup/disable_modules.yaml').each do |mod|
       if module_enabled?(enabled_modules, mod)
