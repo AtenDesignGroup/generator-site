@@ -12,6 +12,8 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
     this.vagrant = true;
     this.vagrantPort = 8080;
     this.vagrantDomain = path.dirname(this.dest) + '.dev';
+
+    this.option('public-resources', { type: Boolean });
   },
 
   prompting: {
@@ -125,7 +127,10 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
     }
 
     // create the resources directory
-    var resourcesPath = path.join(publicHtml, 'resources')
+    var resourcesPath = 'resources';
+    if (this.options.public_resources) {
+      resources = path.join(publicHtml, 'resources');
+    }
     this.directory('resources', resourcesPath);
 
     // composer.json
