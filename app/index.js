@@ -133,6 +133,9 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
     }
     this.directory('resources', resourcesPath);
 
+    // package.json
+    this.template('package-json', 'package.json');
+
     // composer.json
     this.template('composer-json', 'composer.json');
 
