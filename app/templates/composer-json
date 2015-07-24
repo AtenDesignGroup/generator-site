@@ -1,11 +1,13 @@
 {
   "require": {
     <% if (behat) { %>
-    "behat/behat": "2.4.*@stable",
+    "behat/behat": "2.5.*@stable",
     "behat/mink": "*",
     "behat/mink-extension": "*",
     "behat/mink-goutte-driver": "*",
-    "behat/mink-zombie-driver": "*"
+    "behat/mink-zombie-driver": "*",
+    "fabpot/goutte": "1.*",
+    "phpunit/phpunit": "4.5.*"
     <% } %>
   },
   "minimum-stability": "dev",
