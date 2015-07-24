@@ -25,7 +25,7 @@ config.paths = {
   jsContrib: [config.base + 'sites/all/modules/contrib/**/*.js'],
   jsCustom: [config.base + 'sites/all/modules/custom/**/*.js'],
   jsPatched: [config.base + 'sites/all/modules/patched/**/*.js'],
-  jsLibrary: [config.base + 'sites/all/libraries/**/*.js'],
+  jsLibraries: [config.base + 'sites/all/libraries/**/*.js'],
 
   // the theme JS files for compression
   jsTheme: [

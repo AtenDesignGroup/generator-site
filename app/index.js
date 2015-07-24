@@ -117,11 +117,17 @@ var AtenSiteGenerator = yeoman.generators.Base.extend({
     }
 
     // create the resources directory
-    var resourcesPath = path.join(publicHtml, 'resources')
+    var resourcesPath = path.join(publicHtml, 'resources');
     this.directory('resources', resourcesPath);
+
+    // package.json
+    this.template('package-json', 'package.json');
 
     // composer.json
     this.template('composer-json', 'composer.json');
+
+    // Gulpfile
+    this.copy('Gulpfile.js', 'Gulpfile.js');
 
     // JS hint & cs
     this.copy('jshintrc', '.jshintrc');

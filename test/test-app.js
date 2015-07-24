@@ -27,4 +27,16 @@ describe('aten-site:app', function () {
     ]);
     assert.fileContent('resources/gulp/config.js', 'sites/all/themes/' + prompts.themeId);
   });
+
+  it('Creates package.json', function () {
+    assert.file([
+      'package.json'
+    ]);
+  });
+
+  it('Creates Gulpfile.js', function () {
+    assert.file([
+      'Gulpfile.js'
+    ]);
+  });
 });
